@@ -1,0 +1,11 @@
+
+  <ul class="list-group-flush">
+
+
+
+  {% for rubric in rubrics %}
+  <li class="list-group-item"><h5><a href="{% url 'main:by_rubric' pk=rubric.pk %}" class="text-decoration-none text-reset"><i class="bi bi-newspaper"></i> {{ rubric.name }} </a></h5></li>
+  {% endfor %}
+</ul>
+    
+

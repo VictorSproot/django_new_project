@@ -1,0 +1,45 @@
+{% extends "layout/basic.html" %}
+
+{% load thumbnail %}
+{% load static %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<h4>Профиль пользователя {{ user.username }}</h4>
+{% if user.first_name and user.last_name %}
+<p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+{% else %}
+<p>Здравствуйте!</p>
+{% endif %}
+<img src="{{ user.avatar.url }}" class="img-fluid rounded-start" width="200" alt="{{ user.username }}"></a>
+</br></br><a href="{% url 'main:profile_bb_add' %}" class="text-decoration-none text-reset btn btn-light"><i class="bi bi-plus-circle"></i> Добавить книгу</a></p>
+{% if bbs %}
+<h5>Ваши книги</h5><p>
+  
+
+
+{% for bb in bbs %}<hr/>
+    <div class="row g-0">
+      {% url 'main:profile_bb_detail' pk=bb.pk as url %}
+      <div class="col-md-3">
+        <a href='{{ url }}{{ all }}'><img src="{% thumbnail bb.image 'default' %}" class="img-fluid rounded-start" width="50" alt="{{ bb.title }}"></a>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+            <a href="{{ url }}{{ all }}" class="text-decoration-none text-reset"><h5>{{ bb.title }}  &nbsp; &nbsp;    <i class="bi bi-pencil-square"></i> <i class="bi bi-trash3-fill"></i></h5></a>
+          
+
+
+          <p class="card-text"><small class="text-muted"><span class="badge bg-light text-dark">{{ book.category.first }}  </span></small></p> 
+          <a href="{% url 'main:profile_bb_change' pk=bb.pk %}" class="text-decoration-none text-reset"><i class="bi bi-pencil-square"></i> Исправить</a>
+          <a href="{% url 'main:profile_bb_delete' pk=bb.pk %}" class="text-decoration-none text-reset"><i class="bi bi-trash3-fill"></i> Удалить</a>
+        </div>
+      </div> 
+    </div>
+      {% endfor %}
+
+
+
+{% endif %}
+{% endblock %}
